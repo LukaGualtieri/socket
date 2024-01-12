@@ -7,25 +7,21 @@ NUM_MESSAGES = 5
 
 #Creazione del socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+while True:
+    primoNumero=float(input("Inserisci il primo numero: "))
+    operazione=input("Inserisci l'operazione (+,-,*,/,%)")
+    secondoNumero=float(input("Inserisci il secondo numero: "))
+    messaggio={"primoNumero":primoNumero,
+               "operazione":operazione,
+               "secondoNumero":secondoNumero}
+    messaggio=json.dumps(messaggio) #trasformiamo l'oggetto in una stringa
+    sock.sendto(messaggio.encode("UTF-8"), (SERVER_IP, SERVER_PORT))
+    data=sock.recv(BUFFER_SIZE)
+    print("Risultato: ",data.decode())
 
-for i in range(NUM_MESSAGES):
-    #Invio delmessaggio al server
-    message = "ping"
-    sock.sendto(message.encode(), (SERVER_IP, SERVER_PORT))
-    print(f"Messaggio inviato al server: {message}")
-
-    #Ricezione della risposta dal server 
-    data, addr = sock.recvfrom(BUFFER_SIZE)
-    print(f"Messaggio ricevuto dal server {addr}: {data.decode()}")
+    risposta=(input("--- Eseguire un altro calcolo? s-si n-no --- "))
+    if(risposta=='n'):
+        break
 
 #Chiusura del socket
 sock.close()
-
-data=cs.recv(1024)
-#if len(data) ==0:   
-    break
-data=data.decode()
-data=json.loads(data)
-primoNumero=data['primoNumero']
-operazione=data['operazione']
-secondoNumero=data['secondoNumero']
