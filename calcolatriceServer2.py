@@ -45,3 +45,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock_server:
                     ris=primoNumero%secondoNumero
 
                 sock_client.sendall(str(ris).encode())
+        print(f"Chiusa connessione da {address_client}")
