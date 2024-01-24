@@ -1,9 +1,9 @@
 # Server
 import socket,json
 
-# Configurazione del server
+# Configurazione del server+
 IP="127.0.0.1"
-PORTA = 65432
+PORTA = 22011
 DIM_BUFFER = 1024
 
 #Creazione della socket del server con il costrutto with
@@ -14,8 +14,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock_server:
 
     #Metti la socket in ascolto per le connessioni in ingresso
     sock_server.listen()
-    print(f"Server in ascolto su {IP}:{PORTA}...")
-
+    print(f"Server in ascolto su {IP}: {PORTA}")
+    print("attendo i dati...")
+    
     #Loop principale del server
     while True:
         sock_service, address_client = sock_server.accept()
