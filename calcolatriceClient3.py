@@ -2,7 +2,7 @@
 import socket,json
 
 HOST = '127.0.0.1' # Indirizzo del server
-PORT = 65432 # Porta usata dal server
+PORT = 5005 # Porta usata dal server
 DIM_BUFFER = 1024
 
 
