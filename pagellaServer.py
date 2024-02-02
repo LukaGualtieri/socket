@@ -17,10 +17,10 @@ print(f"Connesso a {indirizzo_client}")
 def gestisci_comando(comando, parametri, voti):
     if comando == "#list":
         return "Caricamento...", voti
-    elif comando.startswith("#get"):
+    elif comando == "#get":
         nome_studente = parametri.strip('/')
         if nome_studente in voti:
-            return "Certo!", voti[nome_studente]
+            return "Certo! I voti dello studente sono:", voti[nome_studente]
         else:
             return "Attenzione, errore!", "Studente non presente!"
     elif comando.startswith("#set"):
@@ -31,8 +31,7 @@ def gestisci_comando(comando, parametri, voti):
         else:
             return "Attenzione, errore!", "Studente già presente!"
     elif comando.startswith("#put"):
-        parametri_lista = parametri.strip('/').split('/')
-        nome_studente, materia, voto, ore = parametri_lista
+        _,nome_studente, materia, voto, ore = parametri.split("/")
         if nome_studente in voti:
             for materia_voto in voti[nome_studente]:
                 if materia_voto[0] == materia:

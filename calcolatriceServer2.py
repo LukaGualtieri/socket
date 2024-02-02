@@ -1,7 +1,7 @@
 # Server
 import socket,json
 
-# Configurazione del server+
+# Configurazione del server
 IP="127.0.0.1"
 PORTA = 22011
 DIM_BUFFER = 1024
