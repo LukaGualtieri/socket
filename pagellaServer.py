@@ -15,6 +15,7 @@ print(f"Connesso a {indirizzo_client}")
 
 # Funzione gestisci_comando
 def gestisci_comando(comando, parametri, voti):
+    print(comando,parametri)
     if comando == "#list":
         return "Caricamento...", voti
     elif comando == "#get":
@@ -31,7 +32,7 @@ def gestisci_comando(comando, parametri, voti):
         else:
             return "Attenzione, errore!", "Studente già presente!"
     elif comando.startswith("#put"):
-        _,nome_studente, materia, voto, ore = parametri.split("/")
+        nome_studente, materia, voto, ore = parametri
         if nome_studente in voti:
             for materia_voto in voti[nome_studente]:
                 if materia_voto[0] == materia:

@@ -17,26 +17,26 @@ while True:
     print("#put /nomestudente/materia/voto/ore : per aggiungere i voti della materia allo studente")
     print("#close : per chiudere la connessione")
 
-    comando = input("Digita il comando: ")
-    parametri = comando.split(" ")
-
-    if comando == "#list":
-        client_socket.send(json.dumps({"comando": parametri[0].strip(), "parametri": ""}).encode('utf-8'))
-    elif comando == "#put":
-        client_socket.send(json.dumps({"comando": parametri[0].strip(), "parametri": parametri}).encode('utf-8'))
-    else:
-        client_socket.send(json.dumps({"comando": parametri[0].strip(), "parametri": parametri[1]}).encode('utf-8'))
- 
-
-    risposta =json.loads((client_socket.recv(1024)).decode('utf-8'))
-    print(risposta)
+    dati = input("Digita il comando: ")
+    if  "list" in dati:
+        comando="#list"
+        parametri=""
+    elif "get" in dati or "set" in dati: 
+        comando,parametri = dati.split("/")
+    elif "put" in dati:
+        lista=dati.split("/")
+        comando=lista[0]
+        parametri=[lista[1],lista[2],lista[3],lista[4]]
+    elif "#close" in dati:
+        break 
     
+    client_socket.send(json.dumps({"comando": comando.strip(), "parametri": parametri}).encode('utf-8'))
+
+    risposta =json.loads((client_socket.recv(1024)).decode('utf-8'))    
 
     print(risposta["risposta"])
     if risposta["valori"] is not None:
         print(risposta["valori"])
 
-    if comando == "#close":
-        break
-
 client_socket.close()
+print("Socket terminata con successo!")
